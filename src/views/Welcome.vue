@@ -19,8 +19,8 @@ moment.locale('zh-cn')
 export default class Welcome extends Vue {
   public Day: string = moment().format('YYYY-MM-DD');
   public Hour: string = moment().format('HH:mm:ss');
-  private interTimer: number = 0;
-  private timer: number = 0;
+  private interTimer: any = 0;
+  private timer: any = 0;
   // 初始化组件
   private init() {
     // 用定时器获取当前时间
