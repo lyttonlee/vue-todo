@@ -4,7 +4,13 @@ import moment from 'moment'
 import http from './api/api'
 
 Vue.use(Vuex);
-
+interface Todo {
+  content: string,
+  creatTime: string,
+  complete: boolean,
+  updateTime?: string,
+  _id?: string
+}
 export default new Vuex.Store({
   state: {
     gname: 'Lytton',
@@ -17,19 +23,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    newTodo({commit}, data: any) {
-      interface Todo {
-        event: string,
-        date: string,
-        complete: boolean,
-        _id?: string
-      }
+    newTodo({commit}, data: Todo) {
       http.post('/todos', data).then((res) => {
         console.log(res)
       })
     },
+    getTodos({commit}, query) {
+      http.get('/todos', query).then((res) => {
+        console.log(res)
+      })
+    },
     findAll({commit}, query) {
-
+      // ..
+      http.get('/todos').then((res) => {
+        console.log(res)
+      })
     },
   },
 });
