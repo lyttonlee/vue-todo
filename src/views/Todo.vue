@@ -24,7 +24,7 @@
   #nav {
     position: fixed;
     bottom: 0;
-    height: 60px;
+    height: 8vh;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -32,8 +32,8 @@
     background-color: @mainColor;
     .route {
       flex: auto;
-      height: 60px;
-      line-height: 60px;
+      height: 8vh;
+      line-height: 8vh;
       color: rgb(194, 196, 197);
       .icon {
         font-size: 2rem;
@@ -45,7 +45,7 @@
     }
   }
   .view {
-    margin-bottom: 60px;
+    margin-bottom: 8vh;
   }
 }
 </style>
