@@ -17,7 +17,7 @@
         </div>
       </template>
     </div>
-    <div class="todos" v-else>
+    <div class="todos" :style="{height: height}" v-else>
       <h3>{{emptyMsg}}</h3>
     </div>
   </div>
@@ -27,23 +27,35 @@ import {Vue, Component, Prop} from 'vue-property-decorator'
 import {Action} from 'vuex-class'
 @Component
 export default class Todos extends Vue {
-  @Prop() emptyMsg!: string
-  @Prop() todos: any
-  @Prop({ default: '80vh'}) height!: string
-  @Prop({ default: 'rgba(3, 68, 39, 0.8)' }) completeColor!: string
-  @Prop({ default: 'rgba(94, 64, 26, 0.8)' }) uncompleteColor!: string
-  @Action updateTodoById: any
-  @Action getTodayTodos: any
-  async changeTodo(id: string, complete: boolean) {
+  @Prop() public type!: any
+  @Prop() public emptyMsg!: string
+  @Prop() public todos: any
+  @Prop({ default: '80vh'}) public height!: string
+  @Prop({ default: 'rgba(3, 68, 39, 0.8)' }) public completeColor!: string
+  @Prop({ default: 'rgba(94, 64, 26, 0.8)' }) public uncompleteColor!: string
+  @Action public updateTodoById: any
+  @Action public filterTodayTodos: any
+  public formatType(type: any) {
+    if (type === 0) {
+      return undefined
+    } else if (type === 1) {
+      return true
+    } else {
+      return false
+    }
+  }
+  public async changeTodo(id: string, complete: boolean) {
     // ..
     // if (complete) return
     try {
       const data = {
         id,
-        complete
+        complete,
       }
       await this.updateTodoById(data)
-      await this.getTodayTodos()
+      const filterParam = this.formatType(this.type)
+      // console.log(filterParam)
+      await this.filterTodayTodos(filterParam)
     } catch (error) {
       console.log(error)
     }

@@ -3,7 +3,7 @@
     <!-- 新增todo input -->
     <div class="input-container" :style="{display: visable ? 'block' : 'none'}">
       <input placeholder="tell me what you want to do" v-model="content" class="input" type="text">
-      <button :disabled="disabled" class="button" @click="addNewTodo"><i class="iconfont icon-add icon"></i></button>
+      <button :disabled="disabled" class="button" @click="addNewTodo"><i class="iconfont icon-add2 icon"></i>Add New Todo</button>
     </div>
     <!-- todos -->
     <div class="todos" v-if="tomorrowTodos.length !== 0">
@@ -30,38 +30,37 @@ import {Action, State} from 'vuex-class'
 import {TodayTime, TomorrowTime} from '../utils/formatTime'
 @Component
 export default class Tomorrow extends Vue {
-  content: string = ''
-  visable: boolean = false
-  @State tomorrowTodos: any
-  get disabled (): boolean {
+  public content: string = ''
+  public visable: boolean = false
+  @State public tomorrowTodos: any
+  get disabled(): boolean {
     if (this.content === '') {
       return true
     } else {
       return false
     }
   }
-  get iconName (): string {
+  get iconName(): string {
     if (this.visable) {
       return 'icon-shanchu1'
     } else {
       return 'icon-add1'
     }
   }
-  @Action newTodo: any
-  @Action getTomorrowTodos: any
-  @Action deleteTodoById: any
-  showInput () {
+  @Action public newTodo: any
+  @Action public getTomorrowTodos: any
+  @Action public deleteTodoById: any
+  public showInput() {
     this.visable = !this.visable
-    console.log(this.tomorrowTodos)
   }
-  addNewTodo () {
+  public addNewTodo() {
     const todo = {
       content: this.content,
       complete: false,
-      createTime: TomorrowTime
+      createTime: TomorrowTime,
     }
     this.newTodo(todo).then((res: object) => {
-      console.log(res)
+      // console.log(res)
       this.content = ''
       this.getTomorrowTodos()
     })
@@ -71,7 +70,7 @@ export default class Tomorrow extends Vue {
       }
     })
   }
-  async deleteTodo (id: string) {
+  public async deleteTodo(id: string) {
     // console.log(id)
     try {
       await this.deleteTodoById(id)
@@ -79,13 +78,11 @@ export default class Tomorrow extends Vue {
     } catch (err) {
       console.log(err)
     }
-    
   }
-  created () {
+  public created() {
     this.getTomorrowTodos()
   }
 }
-
 </script>
 
 <style lang="less" scoped>
@@ -94,40 +91,49 @@ export default class Tomorrow extends Vue {
   .input-container {
     box-sizing: border-box;
     position: fixed;
+    display: flex;
+    flex-direction: column;
     padding-top: 10vh;
     height: 92vh;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     .input {
-      width: 90%;
+      width: 100%;
       height: 2rem;
       color: rgb(36, 36, 36);
       font-size: 1.5rem;
       text-indent: 1rem;
       border: none;
+      box-sizing: border-box;
       border-bottom: 1px solid @mainColor;
       outline: 0;
-      // &:focus {
-      //   border: none;
-      //   border-bottom: 1px solid @activeColor;
-      // }
+      &:focus {
+        border: none;
+        border-bottom: 2px solid @activeColor;
+      }
     }
     .button {
       outline: 0;
+      margin: 20px 0;
       border: none;
-      padding: 0;
-      background-color: #fff;
-      color: @mainColor;
+      background-color: rgb(8, 83, 73);
+      height: 50px;
+      width: 80%;
+      border-radius: 25px;
+      line-height: 50px;
+      font-size: 1.5rem; 
+      color: #ccc;
       &:disabled {
         // background-color: rgb(15, 54, 88);
-        color: rgb(58, 57, 57);
+        color: rgb(156, 143, 143);
+        background-color: rgba(8, 83, 73, .3);
       }
       .icon {
-        border-bottom: 1px solid @mainColor;
+        // border-bottom: 1px solid @mainColor;
         height: 2rem;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         line-height: 2rem;
-        padding:  0 0 7px 0;
+        padding: 0 20px 0 0;
       }
     }
   }

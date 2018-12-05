@@ -30,10 +30,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    filterTodayCompleteTodos: (state) => {
-      // ..
-      return state.todayTodos.filter((todo) => todo.complete === true)
-    },
+    // ...
   },
   actions: {
     newTodo({commit}, data: Todo) {
@@ -51,11 +48,19 @@ export default new Vuex.Store({
         })
       })
     },
-    getTodayTodos({commit}) {
-      const query: object = {
-        createTime: TodayTime,
+    filterTodayTodos({commit}, complete?: boolean) {
+      let query
+      if (complete === undefined) {
+        query = {
+          createTime: TodayTime,
+        }
+      } else {
+        query = {
+          createTime: TodayTime,
+          complete,
+        }
       }
-      http.get(`/todos?filter={"where":${JSON.stringify(query)},"skip":0,"limit":20}`).then((res) => {
+      http.get(`/todos?filter={"where":${JSON.stringify(query)},"skip":0,"limit":10}`).then((res) => {
         // console.log(res)
         commit('syncTodayTodo', res.data)
       })
@@ -64,7 +69,7 @@ export default new Vuex.Store({
       const query: object = {
         createTime: TomorrowTime,
       }
-      http.get(`/todos?filter={"where":${JSON.stringify(query)},"skip":0,"limit":20}`).then((res) => {
+      http.get(`/todos?filter={"where":${JSON.stringify(query)},"skip":0,"limit":10}`).then((res) => {
         // console.log(res)
         commit('syncTomorrowTodo', res.data)
       })
@@ -107,12 +112,6 @@ export default new Vuex.Store({
             err,
           })
         })
-      })
-    },
-    findAll({commit}, query) {
-      // ..
-      http.get('/todos').then((res) => {
-        console.log(res)
       })
     },
   },

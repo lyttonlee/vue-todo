@@ -34,14 +34,14 @@
       flex: auto;
       height: 8vh;
       line-height: 8vh;
-      color: rgb(194, 196, 197);
+      color: rgb(113, 114, 114);
       .icon {
         font-size: 2rem;
       }
     }
     .active {
       background-color: @activeColor;
-      color: rgb(5, 100, 68);
+      color: rgb(211, 204, 204);
     }
   }
   .view {
