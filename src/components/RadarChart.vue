@@ -2,7 +2,7 @@
 import { Line, Bar, PolarArea, Radar, Doughnut, Pie } from 'vue-chartjs'
 
 export default {
-  extends: Line,
+  extends: Radar,
   props: {
     chartdata: {
       type: Object,

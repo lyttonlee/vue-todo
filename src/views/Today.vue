@@ -29,12 +29,16 @@ import Todos from '../components/Todos.vue'
   },
 })
 export default class Today extends Vue {
+  // vuex-class 代替 mapAction 等帮助函数
   @State public todayTodos: any
-  @Action public getTodayTodos: any
+  // @Action public getTodayTodos: any
   @Action public filterTodayTodos: any
-  public menus: any = ['全部', '已完成', '未完成']
+  // TS data 不再需要 data () { return {}}
+  public menus: string[] = ['全部', '已完成', '未完成']
   public menuIndex: number = 0
-  public get emptyMsg() {
+  // TS computed xuyao 需要关键字get
+  // get Name() {return .....}
+  public get emptyMsg(): string {
     if (this.menuIndex === 0) {
       return '这下你高兴了！今天居然无事可做！！！'
     } else if (this.menuIndex === 1) {
@@ -43,7 +47,8 @@ export default class Today extends Vue {
       return '人生就该勤奋做事！！'
     }
   }
-  public async filterTodos(index: number) {
+  // TS methods 不用写 methods: {}
+  public async filterTodos(index: number): Promise<void> {
     if (index === 1) {
       await this.filterTodayTodos(true)
       this.menuIndex = index
@@ -55,7 +60,8 @@ export default class Today extends Vue {
       this.menuIndex = index
     }
   }
-  public created() {
+  // TS 生命周期函数,和原来一样的写法
+  public created(): void {
     this.filterTodayTodos()
   }
 }

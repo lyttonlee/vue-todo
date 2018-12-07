@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import {TodayTime, TomorrowTime} from './utils/formatTime'
+import {TodayTime, TomorrowTime, GetLastThreeDays} from './utils/formatTime'
 import http from './api/api'
 
 Vue.use(Vuex);
@@ -17,6 +17,26 @@ export default new Vuex.Store({
     todayTodos: [],
     tomorrowTodos: [],
     newTodo: {},
+    ChartData: {
+      labels: GetLastThreeDays(),
+      datasets: [
+        {
+          label: '全部',
+          backgroundColor: 'rgba(13, 38, f3, .5)',
+          data: [5, 4, 6],
+        },
+        {
+          label: '已完成',
+          backgroundColor: 'rgba(3, 68, 39, .5)',
+          data: [3, 4, 2],
+        },
+        {
+          label: '未完成',
+          backgroundColor: 'rgba(94, 64, 26, .5)',
+          data: [2, 0, 4],
+        },
+      ],
+    },
   },
   mutations: {
     syncNewTodo(state, data) {

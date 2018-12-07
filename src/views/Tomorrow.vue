@@ -83,9 +83,9 @@ export default class Tomorrow extends Vue {
       const res = await this.deleteTodoById(id)
       this.getTomorrowTodos()
       // this.$notify()这是一个添加到Vue原型上的方法，虽然提示是一个错误,但事实上并没有错！！
-      this.$notify({
-        content: res.msg,
-      })
+      // this.$notify({
+      //   content: res.msg,
+      // })
       // console.log(this)
     } catch (err) {
       console.log(err)
