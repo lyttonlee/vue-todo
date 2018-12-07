@@ -55,6 +55,9 @@ export default class Today extends Vue {
       this.menuIndex = index
     }
   }
+  public created() {
+    this.filterTodayTodos()
+  }
 }
 </script>
 <style lang="less" scoped>

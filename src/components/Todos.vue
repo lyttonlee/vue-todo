@@ -6,15 +6,20 @@
       :style="{height: height}"
       v-if="todos.length !== 0">
       <template v-for="(todo, index) in todos">
-        <div
-          class="todo" 
-          :style="{background: todo.complete ? completeColor : uncompleteColor, color: todo.complete ? '#ccc' : '#aaa'}" 
-          :key="index">
-          <div class="content">{{todo.content}}</div>
-          <i 
-            @click="changeTodo(todo.id, todo.complete)" 
-            :class="['iconfont', `${todo.complete ? 'icon-wancheng2' : 'icon-weiwancheng1'}`, 'icon']"></i>
-        </div>
+        <transition
+        :key="index"
+        name="fade"
+        >
+          <div
+            class="todo" 
+            :style="{background: todo.complete ? completeColor : uncompleteColor, color: todo.complete ? '#ccc' : '#aaa'}" 
+            :key="index">
+            <div class="content">{{todo.content}}</div>
+            <i 
+              @click="changeTodo(todo.id, todo.complete)" 
+              :class="['iconfont', `${todo.complete ? 'icon-wancheng2' : 'icon-weiwancheng1'}`, 'icon']"></i>
+          </div>
+        </transition>
       </template>
     </div>
     <div class="todos" :style="{height: height}" v-else>
@@ -64,6 +69,12 @@ export default class Todos extends Vue {
 </script>
 
 <style lang="less" scoped>
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-leave-active {
+  transition: opacity .5s;
+}
 .todos {
     display: flex;
     width: 100%;
@@ -79,7 +90,8 @@ export default class Todos extends Vue {
       margin: 5px;
       height: 10vh;
       border-radius: 5vh;
-      line-height: 10vh;
+      justify-content: center;
+      align-items: center;
       box-shadow: 0 1px 5px #333;
       color: rgba(94, 64, 26, 0.5);
       .content {

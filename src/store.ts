@@ -39,7 +39,7 @@ export default new Vuex.Store({
           // console.log(res)
           commit('syncNewTodo', res.data)
           resolve({
-            msg: '添加Todo成功！',
+            msg: '你明天有多了一件事要做！',
             todo: res.data,
           })
         })

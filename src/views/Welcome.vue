@@ -13,7 +13,6 @@
 </template>
 <script lang="ts">
 import {Vue, Component} from 'vue-property-decorator';
-import {Action} from 'vuex-class'
 import moment from 'moment';
 moment.locale('zh-cn')
 @Component
@@ -22,7 +21,6 @@ export default class Welcome extends Vue {
   public Hour: string = moment().format('HH:mm:ss');
   private interTimer: any = 0;
   private timer: any = 0;
-  @Action filterTodayTodos: any
   // 初始化组件
   private init() {
     // 用定时器获取当前时间
@@ -39,9 +37,6 @@ export default class Welcome extends Vue {
       // console.log(this.timer)
     }, 5000);
     // 这里还可以做一些数据请求...
-  }
-  public created() {
-    this.filterTodayTodos()
   }
   // 组件挂载时，初始化
   private mounted() {

@@ -6,6 +6,9 @@ import 'animate.css';
 import 'normalize.css';
 import './registerServiceWorker';
 
+import Notify from './components/notify/Notify.js'
+
+Vue.prototype.$notify = Notify
 Vue.config.productionTip = false;
 
 new Vue({

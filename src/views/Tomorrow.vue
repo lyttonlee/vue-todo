@@ -28,6 +28,7 @@
 import {Vue, Component} from 'vue-property-decorator'
 import {Action, State} from 'vuex-class'
 import {TodayTime, TomorrowTime} from '../utils/formatTime'
+import notify from '../components/notify/Notify.js'
 @Component
 export default class Tomorrow extends Vue {
   public content: string = ''
@@ -59,10 +60,16 @@ export default class Tomorrow extends Vue {
       complete: false,
       createTime: TomorrowTime,
     }
-    this.newTodo(todo).then((res: object) => {
+    this.newTodo(todo).then((res: any) => {
       // console.log(res)
+      const { msg } = res
       this.content = ''
       this.getTomorrowTodos()
+      this.showInput()
+      notify({
+        title: 'Success',
+        content: res.msg,
+      })
     })
     .catch((err: any) => {
       if (err) {
@@ -73,8 +80,13 @@ export default class Tomorrow extends Vue {
   public async deleteTodo(id: string) {
     // console.log(id)
     try {
-      await this.deleteTodoById(id)
+      const res = await this.deleteTodoById(id)
       this.getTomorrowTodos()
+      // this.$notify()这是一个添加到Vue原型上的方法，虽然提示是一个错误,但事实上并没有错！！
+      this.$notify({
+        content: res.msg,
+      })
+      // console.log(this)
     } catch (err) {
       console.log(err)
     }
